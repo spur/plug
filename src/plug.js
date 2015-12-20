@@ -8,7 +8,7 @@ function plug(plugins, reactComponentClass) {
       super(props, context);
       let pluginInstances = []
       for (let pluginId in plugins) {
-        pluginInstances[pluginId] = new plugins[pluginId]();
+        pluginInstances[pluginId] = new plugins[pluginId](this);
       }
       this.plugins = pluginInstances;
     }
