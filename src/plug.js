@@ -1,12 +1,12 @@
-import ReactDom from 'react-dom';
+var ReactDom = require('react-dom');
 
 function plug(plugins, reactComponentClass) {
-  
+
   function Plug(props, context) {
     reactComponentClass.call(this, props, context);
-    let pluginInstances = {};
+    var pluginInstances = {};
 
-    for (let pluginId in plugins) {
+    for (var pluginId in plugins) {
       pluginInstances[pluginId] = new plugins[pluginId](this);
     }
 
@@ -27,9 +27,9 @@ function plug(plugins, reactComponentClass) {
       reactComponentClass.prototype.componentDidMount.call(this);
     }
 
-    let DOMNode = ReactDom.findDOMNode(this);
-    for (let pluginId in this.plugins) {
-      let plugin = this.plugins[pluginId];
+    var DOMNode = ReactDom.findDOMNode(this);
+    for (var pluginId in this.plugins) {
+      var plugin = this.plugins[pluginId];
       if (plugin.componentDidMount) { plugin.componentDidMount(DOMNode); }
     }
   };
@@ -39,8 +39,8 @@ function plug(plugins, reactComponentClass) {
       reactComponentClass.prototype.componentWillMount.call(this);
     }
 
-    for (let pluginId in this.plugins) {
-      let plugin = this.plugins[pluginId];
+    for (var pluginId in this.plugins) {
+      var plugin = this.plugins[pluginId];
       if (plugin.componentWillMount) { plugin.componentWillMount(); }
     }
   };
@@ -50,8 +50,8 @@ function plug(plugins, reactComponentClass) {
       reactComponentClass.prototype.componentWillUnmount.call(this);
     }
 
-    for (let pluginId in this.plugins) {
-      let plugin = this.plugins[pluginId];
+    for (var pluginId in this.plugins) {
+      var plugin = this.plugins[pluginId];
       if (plugin.componentWillUnmount) { plugin.componentWillUnmount(); }
     }
   };
@@ -63,4 +63,4 @@ function plug(plugins, reactComponentClass) {
   return Plug;
 }
 
-export default plug;
+module.exports = plug;
