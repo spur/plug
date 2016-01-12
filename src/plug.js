@@ -6,28 +6,30 @@ function plug(plugins, reactComponentClass) {
   class PlugDecorator extends React.Component {
     constructor(props, context) {
       super(props, context);
-      let pluginInstances = []
+      let pluginInstances = {};
+
       for (let pluginId in plugins) {
         pluginInstances[pluginId] = new plugins[pluginId](this);
       }
+
       this.plugins = pluginInstances;
     }
 
     componentDidMount() {
       let DOMNode = ReactDom.findDOMNode(this.reactComponentInstance);
-      for (let pluginId in this.state.plugins) {
+      for (let pluginId in this.plugins) {
         this.plugins[pluginId].setAttachedComponent(this.reactComponentInstance, DOMNode);
       }
     }
 
     componentWillUnmount() {
-      for (let pluginId in this.state.plugins) {
+      for (let pluginId in this.plugins) {
         this.plugins[pluginId].tearDown();
       }
     }
 
     render() {
-      return (<PlugDecorator.reactComponentClass ref={(ref) => { this.reactComponentInstance = ref; }} {...this.props} {...this.state.plugins} />);
+      return (<PlugDecorator.reactComponentClass ref={(ref) => { this.reactComponentInstance = ref; }} {...this.plugins} {...this.props} {...this.state} />);
     }
   }
 
