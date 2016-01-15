@@ -11,6 +11,10 @@ function plug(plugins, reactComponentClass) {
     }
 
     this.plugins = pluginInstances;
+
+    if (this.pluginsLoaded) {
+      this.pluginsLoaded();
+    }
   };
 
   Plug.prototype = Object.create(reactComponentClass.prototype, {
