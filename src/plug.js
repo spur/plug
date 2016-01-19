@@ -49,6 +49,17 @@ function plug(plugins, reactComponentClass) {
     }
   };
 
+  Plug.prototype.componentWillReceiveProps = function (nextProps, nextState) {
+    if (reactComponentClass.prototype.componentWillReceiveProps) {
+      reactComponentClass.prototype.componentWillReceiveProps.call(this, nextProps, nextState);
+    }
+
+    for (var pluginId in this.plugins) {
+      var plugin = this.plugins[pluginId];
+      if (plugin.componentWillReceiveProps) { plugin.componentWillReceiveProps(nextProps, nextState); }
+    }
+  };
+
   Plug.prototype.componentWillUnmount = function () {
     if (reactComponentClass.prototype.componentWillUnmount) {
       reactComponentClass.prototype.componentWillUnmount.call(this);
