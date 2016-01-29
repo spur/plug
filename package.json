@@ -1,8 +1,8 @@
 {
   "name": "spur-plug",
   "version": "0.1.0",
-  "description": "Decorator system to add plugins to React components.",
-  "main": "src/plug.js",
+  "description": "Plugin system for React components",
+  "main": "plug.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spur/plug.git"
@@ -10,7 +10,8 @@
   "keywords": [
     "react-component",
     "plug",
-    "plugins"
+    "plugins",
+    "spur"
   ],
   "author": "Paul Colleoni (http://github.com/polco)",
   "license": "ISC",
@@ -19,6 +20,6 @@
   },
   "homepage": "https://github.com/spur/plug#readme",
   "dependencies": {
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.7"
   }
 }

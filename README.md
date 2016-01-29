@@ -1,5 +1,8 @@
 # plug
-Allows you to add plugins to React components the same way as mixins do.
+Plugin system for React components.
+
+It allows you to add plugins to React components the same way as mixins do.
+
 
 ## API
 ### plug
