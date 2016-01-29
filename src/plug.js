@@ -38,11 +38,12 @@ function plug(plugins, reactComponentClass) {
   };
 
   Plug.prototype.componentDidMount = function () {
+    var DOMNode = ReactDom.findDOMNode(this);
+
     if (reactComponentClass.prototype.componentDidMount) {
-      reactComponentClass.prototype.componentDidMount.call(this);
+      reactComponentClass.prototype.componentDidMount.call(this, DOMNode);
     }
 
-    var DOMNode = ReactDom.findDOMNode(this);
     for (var pluginId in this.plugins) {
       var plugin = this.plugins[pluginId];
       if (plugin.componentDidMount) { plugin.componentDidMount(DOMNode); }
