@@ -70,7 +70,7 @@ class MyPlugin {
 
 
 Example of plugins can be find on the Spur organisation repositories:
-- https://github.com/spur/transform-plugin
+- https://github.com/spur/style-plugin
 - https://github.com/spur/button-plugin
 - ...
 

@@ -1,6 +1,11 @@
 var ReactDom = require('react-dom');
+var objectAssign = require('object-assign');
 
 function plug(plugins, reactComponentClass) {
+  if (reactComponentClass.reactComponentClass) {
+    reactComponentClass = reactComponentClass.reactComponentClass;
+    plugins = objectAssign({}, plugins, reactComponentClass.plugins);
+  }
 
   function Plug(props, context) {
     reactComponentClass.call(this, props, context);
@@ -16,6 +21,8 @@ function plug(plugins, reactComponentClass) {
       this.pluginsLoaded();
     }
   };
+  Plug.reactComponentClass = reactComponentClass;
+  Plug.plugins = plugins;
 
   Plug.prototype = Object.create(reactComponentClass.prototype, {
     constructor: {

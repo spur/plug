@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/spur/plug#readme",
   "dependencies": {
+    "object-assign": "^4.0.1",
     "react-dom": "^0.14.7"
   }
 }
