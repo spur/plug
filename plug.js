@@ -10,8 +10,8 @@ function installPlugins(plugins, pluginInstances) {
 		pluginInstances[plugName] = new Plugin(this);
 
 		var dependencies = Plugin.dependencies;
-		if (!dependencies) {
-			installPlugins(plugins, pluginInstances);
+		if (dependencies) {
+			installPlugins.call(this, dependencies, pluginInstances);
 		}
 	}
 }
@@ -26,7 +26,7 @@ function plug(plugins, reactComponentClass) {
 		reactComponentClass.call(this, props, context);
 
 		var pluginInstances = {};
-		installPlugins(plugins, pluginInstances);
+		installPlugins.call(this, plugins, pluginInstances);
 		this.plugins = pluginInstances;
 
 		if (this.pluginsLoaded) {
