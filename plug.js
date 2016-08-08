@@ -1,6 +1,8 @@
 var ReactDom = require('react-dom');
 var objectAssign = require('object-assign');
 
+var reserved = Object.getOwnPropertyNames(function () {});
+
 function installPlugins(plugins, pluginInstances) {
 	for (var i = 0, len = plugins.length; i < len; i += 1) {
 		var Plugin = plugins[i];
@@ -18,8 +20,8 @@ function installPlugins(plugins, pluginInstances) {
 
 function plug(plugins, reactComponentClass) {
 	if (reactComponentClass.reactComponentClass) {
+		plugins = reactComponentClass.plugins.concat(plugins);
 		reactComponentClass = reactComponentClass.reactComponentClass;
-		plugins = objectAssign({}, plugins, reactComponentClass.plugins);
 	}
 
 	function Plug(props, context) {
@@ -113,11 +115,15 @@ function plug(plugins, reactComponentClass) {
 		}
 	};
 
-	for (var staticPropertyKey in reactComponentClass) {
-		if (reactComponentClass.hasOwnProperty(staticPropertyKey)) {
-			Plug[staticPropertyKey] = reactComponentClass[staticPropertyKey];
+	Object.getOwnPropertyNames(reactComponentClass).forEach(function (name) {
+		if (reserved.indexOf(name) === -1 && typeof reactComponentClass[name] === 'function') {
+			Plug[name] = reactComponentClass[name];
 		}
-	}
+	})
+
+	Object.keys(reactComponentClass).forEach(function (name) {
+		Plug[name] = reactComponentClass[name];
+	})
 
 	return Plug;
 }
